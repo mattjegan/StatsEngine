@@ -6,7 +6,8 @@ import Player
 
 class StatsEngine:
     def __init__(self):
-        pass
+        self.seasons = []
+        self.players = []
 
 def main():
     pass

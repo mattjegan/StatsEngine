@@ -27,6 +27,16 @@ class Player:
     def getAssistsAllTime(self): return self.assistsAllTime
     def getPointsThisSeason(self): return self.pointsThisSeason
     def getPointsAllTime(self): return self.pointsAllTime
+    def displayAllStats(self):
+        print "#--------------#"
+        print self.fullName, "(", self.jerseyNumber, ")"
+        print "Season Goals    :", self.goalsThisSeason
+        print "All Time Goals  :", self.goalsAllTime
+        print "Season Assists  :", self.assistsThisSeason
+        print "All Time Assists:", self.assistsAllTime
+        print "Season Points   :", self.pointsThisSeason
+        print "All Time Points :", self.pointsAllTime
+        print "#--------------#"
 
     ## Setters
     def addGoal(self):
@@ -40,3 +50,14 @@ class Player:
     def updatePoints(self):
         self.pointsThisSeason = self.goalsThisSeason + self.assistsThisSeason
         self.pointsAllTime = self.goalsAllTime + self.assistsAllTime
+
+def main():
+    p = Player("Matt", "Egan", 80, 43, 7)
+    p.displayAllStats()
+    p.addGoal()
+    p.displayAllStats()
+    p.addAssist()
+    p.displayAllStats()
+
+
+if __name__ == "__main__": main()
