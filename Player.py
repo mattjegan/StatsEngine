@@ -1,10 +1,15 @@
 #!/usr/bin/python
 
+import hashlib
+
 class Player:
     def __init__(self, firstName, lastName, jerseyNumber, goalsAllTime, assistsAllTime):
         self.firstName = firstName
         self.lastName = lastName
         self.fullName = self.firstName + " " + self.lastName
+
+        self.IDnum = str(hashlib.md5().update(self.fullName).hexdigest())
+
         self.jerseyNumber = jerseyNumber
         
         self.goalsThisSeason = 0
@@ -20,6 +25,7 @@ class Player:
     def getFirstName(self): return self.firstName
     def getLastName(self): return self.lastName
     def getName(self): return self.fullName
+    def getIDnum(self): return self.IDnum
     def getNumber(self): return self.jerseyNumber
     def getGoalsThisSeason(self): return self.goalsThisSeason
     def getGoalsAllTime(self): return self.goalsAllTime
