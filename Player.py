@@ -5,7 +5,6 @@ import hashlib
 
 class Player:
     def __init__(self, firstName, lastName, jerseyNumber, teamName, goalsAllTime, assistsAllTime):
-        self.previousSeasons = []
 
         self.firstName = firstName
         self.lastName = lastName
@@ -61,9 +60,6 @@ class Player:
     def updatePoints(self):
         self.pointsThisSeason = self.goalsThisSeason + self.assistsThisSeason
         self.pointsAllTime = self.goalsAllTime + self.assistsAllTime
-    def archiveSeason(self):
-        currSeason = SeasonRecord.SeasonRecord(2015, self.teamName, self.goalsThisSeason, self.assistsThisSeason)
-        self.previousSeasons.append(currSeason)
 
 def main():
     p = Player("Matt", "Egan", 80, 43, 7)
