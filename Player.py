@@ -1,9 +1,12 @@
 #!/usr/bin/python
 
+import SeasonRecord
 import hashlib
 
 class Player:
-    def __init__(self, firstName, lastName, jerseyNumber, goalsAllTime, assistsAllTime):
+    def __init__(self, firstName, lastName, jerseyNumber, teamName, goalsAllTime, assistsAllTime):
+        self.previousSeasons = []
+
         self.firstName = firstName
         self.lastName = lastName
         self.fullName = self.firstName + " " + self.lastName
@@ -11,6 +14,7 @@ class Player:
         self.IDnum = str(hashlib.md5().update(self.fullName).hexdigest())
 
         self.jerseyNumber = jerseyNumber
+        self.teamName = teamName
         
         self.goalsThisSeason = 0
         self.goalsAllTime = goalsAllTime
@@ -27,6 +31,7 @@ class Player:
     def getName(self): return self.fullName
     def getIDnum(self): return self.IDnum
     def getNumber(self): return self.jerseyNumber
+    def getTeamName(self): return self.teamName
     def getGoalsThisSeason(self): return self.goalsThisSeason
     def getGoalsAllTime(self): return self.goalsAllTime
     def getAssistsThisSeason(self): return self.assistsThisSeason
@@ -56,6 +61,9 @@ class Player:
     def updatePoints(self):
         self.pointsThisSeason = self.goalsThisSeason + self.assistsThisSeason
         self.pointsAllTime = self.goalsAllTime + self.assistsAllTime
+    def archiveSeason(self):
+        currSeason = SeasonRecord.SeasonRecord(2015, self.teamName, self.goalsThisSeason, self.assistsThisSeason)
+        self.previousSeasons.append(currSeason)
 
 def main():
     p = Player("Matt", "Egan", 80, 43, 7)
