@@ -48,6 +48,8 @@ class Player:
         print "All Time Points :", self.pointsAllTime
         print "#--------------#"
 
+    def getFileName(self): return self.fullName + ".pla"
+
     ## Setters
     def addGoal(self):
         self.goalsThisSeason += 1
