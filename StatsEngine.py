@@ -6,8 +6,8 @@ import Player
 
 import cPickle as pickle
 
-import os
-import sys
+from os import listdir
+from os.path import isfile, join
 
 class StatsEngine:
     def __init__(self):
@@ -15,9 +15,9 @@ class StatsEngine:
         self.players = []
 
         ## Load all players
-        rootDir = #Insert code for getting the root directory here
-        for fileName in rootDir:
-            if fileName[-3:] == ".pla":
+        filesInRoot = [f for f in listdir(".") if isfile(join(".", f))]
+        for fileName in filesInRoot:
+            if fileName[-4:] == ".pla":
                 self.players.append(pickle.load(open(fileName, "rb")))
 
     def addPlayer(self, player):
@@ -27,7 +27,16 @@ class StatsEngine:
         for player in self.players:
             pickle.dump(player, open(player.getFileName(), "wb"))
 
+    def showPlayers(self):
+        if len(self.players) == 0: print "Empty"
+        for player in self.players:
+            print player.getName()
+
 def main():
-    pass
+    eng = StatsEngine()
+    eng.showPlayers()
+    #matt = Player.Player("Matt", "Egan", 80, "Ass", 43, 7)
+    #eng.addPlayer(matt)
+    #eng.saveAll()
 
 if __name__ == "__main__": main()
