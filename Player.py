@@ -4,13 +4,11 @@ import SeasonRecord
 import hashlib
 
 class Player:
-    def __init__(self, firstName, lastName, jerseyNumber, teamName, goalsAllTime, assistsAllTime):
+    def __init__(self, firstName, lastName, jerseyNumber, teamName, goalsAllTime, assistsAllTime, idNum=None):
 
         self.firstName = firstName
         self.lastName = lastName
         self.fullName = self.firstName + " " + self.lastName
-
-        #self.IDnum = str(hashlib.md5().update(self.fullName).hexdigest())
 
         self.jerseyNumber = jerseyNumber
         self.teamName = teamName
@@ -23,12 +21,17 @@ class Player:
 
         self.pointsThisSeason = self.goalsThisSeason + self.assistsThisSeason
         self.pointsAllTime = goalsAllTime + assistsAllTime
-    
+
+        if not idNum:
+            self.idNum = self.generateID()
+        else:
+            self.idNum = idNum
+
     ## Getters
     def getFirstName(self): return self.firstName
     def getLastName(self): return self.lastName
     def getName(self): return self.fullName
-    #def getIDnum(self): return self.IDnum
+    def getIDnum(self): return self.idNum
     def getNumber(self): return self.jerseyNumber
     def getTeamName(self): return self.teamName
     def getGoalsThisSeason(self): return self.goalsThisSeason
@@ -39,7 +42,7 @@ class Player:
     def getPointsAllTime(self): return self.pointsAllTime
     def displayAllStats(self):
         print "#--------------#"
-        print self.fullName, "(", self.jerseyNumber, ")"
+        print self.fullName, "(", self.jerseyNumber, ")", self.teamName
         print "Season Goals    :", self.goalsThisSeason
         print "All Time Goals  :", self.goalsAllTime
         print "Season Assists  :", self.assistsThisSeason
@@ -48,7 +51,7 @@ class Player:
         print "All Time Points :", self.pointsAllTime
         print "#--------------#"
 
-    def getFileName(self): return self.fullName + ".pla"
+    def getFileName(self): return "players/" + self.firstName + "_" + self.lastName + ".pla"
 
     ## Setters
     def addGoal(self):
@@ -63,8 +66,11 @@ class Player:
         self.pointsThisSeason = self.goalsThisSeason + self.assistsThisSeason
         self.pointsAllTime = self.goalsAllTime + self.assistsAllTime
 
+    def generateID(self):
+        return hashlib.sha256(self.fullName + self.teamName + str(self.jerseyNumber)).hexdigest()
+
 def main():
-    p = Player("Matt", "Egan", 80, 43, 7)
+    p = Player("Matt", "Egan", 80, "ASA", 43, 7)
     p.displayAllStats()
     p.addGoal()
     p.displayAllStats()

@@ -24,6 +24,13 @@ class StatsEngine:
         self.players.append(player)
 
     def saveAll(self):
+        ## Delete all players first
+        #filesInRoot = [f for f in listdir(".") if isfile(join(".", f))]
+        #for fileName in filesInRoot:
+        #    if fileName[-4:] == ".pla":
+        #        self.players.append(pickle.load(open(fileName, "rb")))
+
+        ## Pickle all player instances
         for player in self.players:
             pickle.dump(player, open(player.getFileName(), "wb"))
 
@@ -32,11 +39,18 @@ class StatsEngine:
         for player in self.players:
             print player.getName()
 
+    def deletePlayer(self, player):
+        self.players.remove(player)
+
+    def getPlayers(self):
+        return self.players
+
 def main():
     eng = StatsEngine()
-    eng.showPlayers()
-    #matt = Player.Player("Matt", "Egan", 80, "Ass", 43, 7)
-    #eng.addPlayer(matt)
-    #eng.saveAll()
+    #for player in eng.getPlayers():
+    #    eng.deletePlayer(player)
+    matt = Player.Player("Matt", "Egan", 80, "ASA", 15, 15)
+    eng.addPlayer(matt)
+    eng.saveAll()
 
 if __name__ == "__main__": main()
