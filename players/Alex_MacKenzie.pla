@@ -4,7 +4,7 @@ p1
 (dp2
 S'goalsAllTime'
 p3
-I15
+I20
 sS'firstName'
 p4
 S'Alex'
@@ -15,7 +15,7 @@ S'MacKenzie'
 p7
 sS'goalsThisSeason'
 p8
-I0
+I5
 sS'teamName'
 p9
 S'Assassins'
@@ -32,7 +32,7 @@ S'a256f08953e32e0a81a1848371a63f6706686f41f24aa7f74cb7fff37160b70d'
 p14
 sS'pointsAllTime'
 p15
-I30
+I35
 sS'assistsThisSeason'
 p16
 I0
@@ -42,5 +42,5 @@ S'Alex MacKenzie'
 p18
 sS'pointsThisSeason'
 p19
-I0
+I5
 sb.

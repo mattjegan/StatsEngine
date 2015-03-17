@@ -87,7 +87,7 @@ class StatsEngine:
                 if player.getTeamName() == team:
                     print "\t" + player.getName()
 
-    def newGame(self, team1, team2):
+    def startGame(self, team1, team2):
         team1players = []
         team2players = []
         for player in self.players:
@@ -95,23 +95,51 @@ class StatsEngine:
                 team1players.append(player)
             elif player.getTeamName() == team2:
                 team2players.append(player)
-        currentDate = datetime.datetime.today()
-        return Game.Game(team1, team1players, team2, team2players, currentDate)
+        currentDate = datetime.date.today()
+
+        self.currentGame = Game.Game(team1, team1players, team2, team2players, currentDate)
+
+    def endGame(self):
+        pickle.dump(self.currentGame, open("./rsc/games/" + self.currentGame.getGameFile(), "wb"))
+
+    def addGoal(self, team, player):
+        self.currentGame.addGoal(team)
+
+        # Add goal to player
+        player.addGoal()
+
+    def getTeam1Players(self): 
+        return self.currentGame.getTeam1Players()
+    def getTeam2Players(self): 
+        return self.currentGame.getTeam2Players()
+    def getTeam1(self): 
+        return self.currentGame.getTeam1()
+    def getTeam2(self): 
+        return self.currentGame.getTeam2()
+    def getScore(self):
+        return self.currentGame.getScore()
 
 def main():
     eng = StatsEngine()
-
-    eng.addTeam("Assassins")
-    eng.addTeam("Wolves")
-
-    eng.addPlayer(Player.Player("Matthew", "Egan", 80, "Assassins", 15, 15))
-    eng.addPlayer(Player.Player("Alex", "MacKenzie", 55, "Assassins", 15, 15))
-
-    eng.saveAll()
-    eng.showPlayers()
-    print
-    eng.showTeams()
-    print
+    
     eng.showTeamLists()
+
+    for pl in eng.getPlayers():
+        pl.displayAllStats()
+
+    eng.startGame("Assassins", "Wolves")
+    print "\nGame Started"
+    print eng.getScore()
+
+    for p in eng.getTeam1Players():
+        if p.getFirstName() == "Matthew":
+            eng.addGoal("Assassins", p)
+            eng.addGoal("Assassins", p)
+
+    print eng.getScore()
+    eng.endGame()
+    eng.saveAll()
+
+
 
 if __name__ == "__main__": main()
