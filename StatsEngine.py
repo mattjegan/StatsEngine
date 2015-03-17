@@ -15,21 +15,25 @@ class StatsEngine:
         self.players = []
 
         ## Load all players
-        filesInRoot = [f for f in listdir(".") if isfile(join(".", f))]
+        filesInRoot = [f for f in listdir("./players") if isfile(join("./players", f))]
         for fileName in filesInRoot:
             if fileName[-4:] == ".pla":
-                self.players.append(pickle.load(open(fileName, "rb")))
+                self.players.append(pickle.load(open("./players/" + fileName, "rb")))
 
     def addPlayer(self, player):
-        self.players.append(player)
+        if self.playerDoesNotExist(player):
+            self.players.append(player)
+            print "Added player"
+        else:
+            print "Player already exists"
+
+    def playerDoesNotExist(self, player):
+        for p in self.players:
+            if p.getIDnum() == player.getIDnum():
+                return False
+        return True
 
     def saveAll(self):
-        ## Delete all players first
-        #filesInRoot = [f for f in listdir(".") if isfile(join(".", f))]
-        #for fileName in filesInRoot:
-        #    if fileName[-4:] == ".pla":
-        #        self.players.append(pickle.load(open(fileName, "rb")))
-
         ## Pickle all player instances
         for player in self.players:
             pickle.dump(player, open(player.getFileName(), "wb"))
@@ -47,10 +51,11 @@ class StatsEngine:
 
 def main():
     eng = StatsEngine()
-    #for player in eng.getPlayers():
-    #    eng.deletePlayer(player)
-    matt = Player.Player("Matt", "Egan", 80, "ASA", 15, 15)
-    eng.addPlayer(matt)
+
+    eng.getPlayers()[0].displayAllStats()
+    eng.getPlayers()[0].addGoal()
+
     eng.saveAll()
+    eng.showPlayers()
 
 if __name__ == "__main__": main()
