@@ -3,6 +3,9 @@
 import Season
 import Team
 import Player
+import Game
+
+import datetime
 
 import cPickle as pickle
 
@@ -83,6 +86,17 @@ class StatsEngine:
             for player in self.players:
                 if player.getTeamName() == team:
                     print "\t" + player.getName()
+
+    def newGame(self, team1, team2):
+        team1players = []
+        team2players = []
+        for player in self.players:
+            if player.getTeamName() == team1:
+                team1players.append(player)
+            elif player.getTeamName() == team2:
+                team2players.append(player)
+        currentDate = datetime.datetime.today()
+        return Game.Game(team1, team1players, team2, team2players, currentDate)
 
 def main():
     eng = StatsEngine()
