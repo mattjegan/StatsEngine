@@ -7,28 +7,28 @@ p3
 I15
 sS'firstName'
 p4
-S'Matt'
+S'Alex'
 p5
 sS'lastName'
 p6
-S'Egan'
+S'MacKenzie'
 p7
 sS'goalsThisSeason'
 p8
 I0
 sS'teamName'
 p9
-S'ASA'
+S'Assassins'
 p10
 sS'jerseyNumber'
 p11
-I80
+I55
 sS'assistsAllTime'
 p12
 I15
 sS'idNum'
 p13
-S'9ccc79d8884c451bfd3a52c5679f3b772a03586adbd8fcf37a595489fee8f11b'
+S'a256f08953e32e0a81a1848371a63f6706686f41f24aa7f74cb7fff37160b70d'
 p14
 sS'pointsAllTime'
 p15
@@ -38,7 +38,7 @@ p16
 I0
 sS'fullName'
 p17
-S'Matt Egan'
+S'Alex MacKenzie'
 p18
 sS'pointsThisSeason'
 p19

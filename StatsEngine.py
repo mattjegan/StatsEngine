@@ -13,12 +13,20 @@ class StatsEngine:
     def __init__(self):
         self.seasons = []
         self.players = []
+        self.teams = []
 
         ## Load all players
         filesInRoot = [f for f in listdir("./players") if isfile(join("./players", f))]
         for fileName in filesInRoot:
             if fileName[-4:] == ".pla":
                 self.players.append(pickle.load(open("./players/" + fileName, "rb")))
+
+        ## Load teams
+        teamFile = open("./rsc/teams.txt", "rb")
+        self.teams = [t.strip() for t in teamFile]
+        if '' in self.teams:
+            self.teams.remove('')
+        teamFile.close()
 
     def addPlayer(self, player):
         if self.playerDoesNotExist(player):
@@ -38,6 +46,12 @@ class StatsEngine:
         for player in self.players:
             pickle.dump(player, open(player.getFileName(), "wb"))
 
+        ## Save team names
+        teamFile = open("./rsc/teams.txt", "wb")
+        for t in self.teams:
+            teamFile.write(t + "\n")
+        teamFile.close()
+
     def showPlayers(self):
         if len(self.players) == 0: print "Empty"
         for player in self.players:
@@ -49,13 +63,41 @@ class StatsEngine:
     def getPlayers(self):
         return self.players
 
+    def addTeam(self, teamName):
+        if teamName not in self.teams:
+            self.teams.append(teamName)
+        else:
+            print "Team already exists"
+
+    def deleteTeam(self, teamName):
+        self.teams.remove(teamName)
+
+    def showTeams(self):
+        if len(self.teams) == 0: print "Empty"
+        for t in self.teams: 
+            print t
+
+    def showTeamLists(self):
+        for team in self.teams:
+            print team + ":"
+            for player in self.players:
+                if player.getTeamName() == team:
+                    print "\t" + player.getName()
+
 def main():
     eng = StatsEngine()
 
-    eng.getPlayers()[0].displayAllStats()
-    eng.getPlayers()[0].addGoal()
+    eng.addTeam("Assassins")
+    eng.addTeam("Wolves")
+
+    eng.addPlayer(Player.Player("Matthew", "Egan", 80, "Assassins", 15, 15))
+    eng.addPlayer(Player.Player("Alex", "MacKenzie", 55, "Assassins", 15, 15))
 
     eng.saveAll()
     eng.showPlayers()
+    print
+    eng.showTeams()
+    print
+    eng.showTeamLists()
 
 if __name__ == "__main__": main()

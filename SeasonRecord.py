@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+## A record for each season a "Player" is involved in
+
 class SeasonRecord:
     def __init__(self, year, teamName, goals, assists):
         self.year = year
